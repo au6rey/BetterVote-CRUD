@@ -42,7 +42,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"created_by\": \"7197936d-2433-4f93-88f8-6d0821fa96a8\",\r\n    \"poll_title\":\"Rank the Best Animal\",\r\n    \"prompt\": \"Rate each animal\",\r\n    \"vote_system\": \"STAR\",\r\n    \"poll_type\": \"PUBLIC\",\r\n    \"candidates\": [\"Cow\",\"Dog\",\"Cat\",\"Tiger\",\"Hen\"],\r\n    \"start_time\": \"2021-12-15 16:53:45.042031\",\r\n    \"end_time\": \"2021-12-19 16:53:45.042031\"\r\n}",
+					"raw": "{\r\n    \"created_by\": \"ba695302-bf6c-484c-b2c4-37df7a89f74b\",\r\n    \"poll_title\":\"Rank Animals\",\r\n    \"prompt\": \"Rank each animal\",\r\n    \"vote_system\": \"RCV\",\r\n    \"poll_type\": \"PUBLIC\",\r\n    \"candidates\": [\"Cow\",\"Dog\",\"Cat\",\"Tiger\",\"Hen\"],\r\n    \"start_time\": \"2021-12-15 16:53:45.042031\",\r\n    \"end_time\": \"2021-12-19 16:53:45.042031\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -50,7 +50,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/users/7197936d-2433-4f93-88f8-6d0821fa96a8/add-poll",
+					"raw": "http://localhost:3000/api/users/ba695302-bf6c-484c-b2c4-37df7a89f74b/add-poll",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -59,7 +59,7 @@
 					"path": [
 						"api",
 						"users",
-						"7197936d-2433-4f93-88f8-6d0821fa96a8",
+						"ba695302-bf6c-484c-b2c4-37df7a89f74b",
 						"add-poll"
 					]
 				}
@@ -72,7 +72,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/users/7197936d-2433-4f93-88f8-6d0821fa96a8",
+					"raw": "http://localhost:3000/api/users/ba695302-bf6c-484c-b2c4-37df7a89f74b",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -81,7 +81,7 @@
 					"path": [
 						"api",
 						"users",
-						"7197936d-2433-4f93-88f8-6d0821fa96a8"
+						"ba695302-bf6c-484c-b2c4-37df7a89f74b"
 					]
 				}
 			},
@@ -93,7 +93,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/users/7197936d-2433-4f93-88f8-6d0821fa96a8/created-polls",
+					"raw": "http://localhost:3000/api/users/ba695302-bf6c-484c-b2c4-37df7a89f74b/created-polls",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -102,7 +102,7 @@
 					"path": [
 						"api",
 						"users",
-						"7197936d-2433-4f93-88f8-6d0821fa96a8",
+						"ba695302-bf6c-484c-b2c4-37df7a89f74b",
 						"created-polls"
 					]
 				}

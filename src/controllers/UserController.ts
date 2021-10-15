@@ -15,7 +15,6 @@ import { PollInput } from "../interfaces/PollInterfaces";
 
 @Controller("/users")
 export class UserController {
-  // private userRepository;
   constructor() {
   }
 
