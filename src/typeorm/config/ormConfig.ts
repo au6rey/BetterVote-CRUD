@@ -17,8 +17,8 @@ const config: ConnectionOptions = {
     migrationsDir: "src/typeorm/migrations",
     subscribersDir: "src/typeorm/subscriber",
   },
-  dropSchema: true,
-  // logging: true,
+  // dropSchema: true,
+  logging: true,
   namingStrategy: new SnakeNamingStrategy(),
 };
 

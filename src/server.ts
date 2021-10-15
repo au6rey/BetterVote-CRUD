@@ -2,7 +2,7 @@ import express from "express";
 import http from "http";
 import { Server, Socket } from "socket.io";
 import { attachControllers } from "@decorators/express";
-import { HomeController, TestController } from "./controllers";
+import { HomeController, TestController, UserController } from "./controllers";
 
 export default class AppServer {
   private app;
@@ -39,7 +39,13 @@ export default class AppServer {
   }
 
   private routerConfig() {
-    attachControllers(this.app, [TestController, HomeController]);
+    const apiRouter = express.Router();
+    attachControllers(apiRouter, [
+      TestController,
+      HomeController,
+      UserController,
+    ]);
+    this.app.use("/api", apiRouter);
   }
 
   public start = (port: number) => {

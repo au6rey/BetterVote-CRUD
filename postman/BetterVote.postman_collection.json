@@ -1,0 +1,113 @@
+{
+	"info": {
+		"_postman_id": "dcbb90ce-e310-4799-b6c6-eb1d54db6799",
+		"name": "BetterVote",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register new user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_name\": \"aoyool\",\r\n    \"email\":\"aoyool@gmail.com\",\r\n    \"password\": \"xxxassdasd\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/new-user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"new-user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User creates new poll",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"created_by\": \"7197936d-2433-4f93-88f8-6d0821fa96a8\",\r\n    \"poll_title\":\"Choose Best\",\r\n    \"prompt\": \"Who is the best?\",\r\n    \"vote_system\": \"RCV\",\r\n    \"poll_type\": \"PUBLIC\",\r\n    \"candidates\": [\"A\",\"B\",\"C\",\"D\",\"E\"],\r\n    \"start_time\": \"2021-12-15 16:53:45.042031\",\r\n    \"end_time\": \"2021-12-19 16:53:45.042031\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/7197936d-2433-4f93-88f8-6d0821fa96a8/add-poll",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"7197936d-2433-4f93-88f8-6d0821fa96a8",
+						"add-poll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get one user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/users/7197936d-2433-4f93-88f8-6d0821fa96a8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"7197936d-2433-4f93-88f8-6d0821fa96a8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a user's created polls",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/users/7197936d-2433-4f93-88f8-6d0821fa96a8/created-polls",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"7197936d-2433-4f93-88f8-6d0821fa96a8",
+						"created-polls"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

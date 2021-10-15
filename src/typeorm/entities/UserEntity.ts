@@ -3,7 +3,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
@@ -24,7 +23,7 @@ export class User extends BaseEntity {
   @Column({ type: "varchar" })
   password!: string;
 
-  @OneToMany(() => Poll, (poll) => poll.created_by, { cascade: true })
+  @OneToMany(() => Poll, (poll) => poll.created_by)
   created_polls!: Poll[];
 
   @OneToMany(() => Poll, (poll) => poll.registered_users, { cascade: true })
@@ -33,6 +32,6 @@ export class User extends BaseEntity {
   @OneToMany(() => Ballot, (ballot) => ballot.user, { cascade: true })
   submitted_ballots!: Ballot[];
 
-  @CreateDateColumn({ type: "time with time zone", default: () => "NOW()" })
+  @CreateDateColumn({ type: "timestamptz", default: () => "NOW()" })
   created_at!: Date;
 }

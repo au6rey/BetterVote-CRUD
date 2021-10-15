@@ -1,24 +1,86 @@
-import { Controller, Get, Params, Response } from "@decorators/express";
-import { User } from "../typeorm/entities/";
+import {
+  Body,
+  Controller,
+  Get,
+  Params,
+  Post,
+  Request,
+  Response,
+} from "@decorators/express";
+import { Poll, User } from "../typeorm/entities/";
+import { getRepository } from "typeorm";
 import * as Express from "express";
+import { UserRegistrationInput } from "../interfaces/UserInterfaces";
+import { PollInput } from "../interfaces/PollInterfaces";
 
 @Controller("/users")
-export class TestController {
+export class UserController {
+  // private userRepository;
   constructor() {
   }
 
-  @Get("/")
-  async getAll(
+  @Get("/:id")
+  async getOneUser(
     @Response() res: Express.Response,
+    @Params("id") user_id: string,
   ) {
-    res.send(await User.find());
+    try {
+      res.json(await getRepository(User).findOne(user_id));
+    } catch (error) {
+      res.json(error);
+    }
   }
 
-  @Get("/:id")
-  async getOne(
+  @Get("/:id/created-polls")
+  async getCreatedPolls(
     @Response() res: Express.Response,
-    @Params("id") userid: string,
+    @Params("id") user_id: string,
   ) {
-    res.send(await User.findOne(userid));
+    try {
+      const userRepository = await getRepository(User).findOne({
+        where: { user_id },
+        relations: ["created_polls"],
+      });
+      res.json(userRepository);
+    } catch (error) {
+      res.json(error);
+    }
+  }
+
+  @Post("/new-user")
+  async addUser(
+    @Response() res: Express.Response,
+    @Request() req: Express.Request,
+    @Body() body: UserRegistrationInput,
+  ) {
+    try {
+      const userRepository = getRepository(User);
+      await userRepository.save(body);
+      res.json({
+        status: 200,
+      });
+    } catch (error) {
+      res.json(error);
+    }
+  }
+
+  @Post("/:id/add-poll")
+  async addPoll(
+    @Response() res: Express.Response,
+    @Request() req: Express.Request,
+    @Params("id") user_id: string,
+    @Body() body: PollInput,
+  ) {
+    try {
+      const pollRepository = getRepository(Poll);
+      const created_poll = await pollRepository.save(body);
+
+      res.json({
+        status: 200,
+        created_poll,
+      });
+    } catch (error) {
+      res.json(error);
+    }
   }
 }

@@ -1,4 +1,5 @@
 import { HomeController } from "./HomeController";
 import { TestController } from "./TestController";
+import { UserController } from "./UserController";
 
-export { HomeController, TestController };
+export { HomeController, TestController, UserController };
