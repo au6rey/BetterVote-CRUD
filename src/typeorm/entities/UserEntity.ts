@@ -27,7 +27,7 @@ export class User extends BaseEntity {
   @OneToMany(() => Poll, (poll) => poll.created_by, { cascade: true })
   created_polls!: Poll[];
 
-  @OneToMany(() => Poll, (poll) => poll.created_by, { cascade: true })
+  @OneToMany(() => Poll, (poll) => poll.registered_users, { cascade: true })
   registered_polls!: Poll[];
 
   @OneToMany(() => Ballot, (ballot) => ballot.user, { cascade: true })
