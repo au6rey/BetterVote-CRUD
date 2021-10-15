@@ -42,7 +42,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"created_by\": \"7197936d-2433-4f93-88f8-6d0821fa96a8\",\r\n    \"poll_title\":\"Choose Best\",\r\n    \"prompt\": \"Who is the best?\",\r\n    \"vote_system\": \"RCV\",\r\n    \"poll_type\": \"PUBLIC\",\r\n    \"candidates\": [\"A\",\"B\",\"C\",\"D\",\"E\"],\r\n    \"start_time\": \"2021-12-15 16:53:45.042031\",\r\n    \"end_time\": \"2021-12-19 16:53:45.042031\"\r\n}",
+					"raw": "{\r\n    \"created_by\": \"7197936d-2433-4f93-88f8-6d0821fa96a8\",\r\n    \"poll_title\":\"Rank the Best Animal\",\r\n    \"prompt\": \"Rate each animal\",\r\n    \"vote_system\": \"STAR\",\r\n    \"poll_type\": \"PUBLIC\",\r\n    \"candidates\": [\"Cow\",\"Dog\",\"Cat\",\"Tiger\",\"Hen\"],\r\n    \"start_time\": \"2021-12-15 16:53:45.042031\",\r\n    \"end_time\": \"2021-12-19 16:53:45.042031\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
