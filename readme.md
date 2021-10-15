@@ -7,6 +7,7 @@
  2. Clone this repo.
 
 **Terminal commands.**
+
 Install node modules;
 
     npm i
