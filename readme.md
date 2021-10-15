@@ -1,9 +1,9 @@
 **BetterVote REST API**
-Install the latest version of Node from [here.](https://nodejs.dev/download/)
+
 
 **Running Instructions**
 
- 1. Install latest stable version of Node.
+ 1. Install the latest version of Node from [here.](https://nodejs.dev/download/)
  2. Clone this repo.
 
 **Terminal commands.**
