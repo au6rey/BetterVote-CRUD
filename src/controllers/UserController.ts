@@ -7,11 +7,12 @@ import {
   Request,
   Response,
 } from "@decorators/express";
-import { Poll, User } from "../typeorm/entities/";
-import { getRepository } from "typeorm";
+import { Ballot, Poll, User } from "../typeorm/entities/";
+import { getManager, getRepository } from "typeorm";
 import * as Express from "express";
 import { UserRegistrationInput } from "../interfaces/UserInterfaces";
 import { PollInput } from "../interfaces/PollInterfaces";
+import { VoteInput } from "../interfaces/VoteInterfaces";
 
 @Controller("/users")
 export class UserController {
@@ -72,12 +73,43 @@ export class UserController {
   ) {
     try {
       const pollRepository = getRepository(Poll);
+      const user = await getRepository(User).findOne({ user_id });
       const created_poll = await pollRepository.save(body);
+      if (user) {
+        user.created_polls.push(created_poll);
+        await user.save();
+        res.json({
+          status: 200,
+          created_poll,
+        });
+      }
+    } catch (error) {
+      res.json(error);
+    }
+  }
 
-      res.json({
-        status: 200,
-        created_poll,
-      });
+  @Post("/:user_id/submit-vote/:poll_id")
+  async submitVote(
+    @Response() res: Express.Response,
+    @Request() req: Express.Request,
+    @Params("user_id") user_id: string,
+    @Params("poll_id") poll_id: string,
+    @Body() body: VoteInput,
+  ) {
+    try {
+      const user = await getRepository(User).findOne({ user_id });
+      const poll = await getRepository(Poll).findOne({ poll_id });
+
+      if (user && poll) {
+        const new_ballot = new Ballot();
+        new_ballot.user = body.user_id;
+        new_ballot.poll = body.poll_id;
+        new_ballot.selections = body.ballot;
+        await new_ballot.save();
+        res.json({
+          status: 200,
+        });
+      }
     } catch (error) {
       res.json(error);
     }

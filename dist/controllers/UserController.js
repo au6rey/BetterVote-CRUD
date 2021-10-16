@@ -74,10 +74,30 @@ let UserController = class UserController {
     async addPoll(res, req, user_id, body) {
         try {
             const pollRepository = (0, typeorm_1.getRepository)(entities_1.Poll);
+            const user = await (0, typeorm_1.getRepository)(entities_1.User).findOne({ user_id });
             const created_poll = await pollRepository.save(body);
+            if (user) {
+                user.created_polls.push(created_poll);
+                user.save();
+                res.json({
+                    status: 200,
+                    created_poll,
+                });
+            }
+        }
+        catch (error) {
+            res.json(error);
+        }
+    }
+    async submitVote(res, req, user_id, poll_id, body) {
+        try {
+            const new_ballot = new entities_1.Ballot();
+            new_ballot.user = body.user_id;
+            new_ballot.poll = body.poll_id;
+            new_ballot.selections = body.ballot;
+            await new_ballot.save();
             res.json({
                 status: 200,
-                created_poll,
             });
         }
         catch (error) {
@@ -120,6 +140,17 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object, String, Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "addPoll", null);
+__decorate([
+    (0, express_1.Post)("/:user_id/submit-vote/:poll_id"),
+    __param(0, (0, express_1.Response)()),
+    __param(1, (0, express_1.Request)()),
+    __param(2, (0, express_1.Params)("user_id")),
+    __param(3, (0, express_1.Params)("poll_id")),
+    __param(4, (0, express_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object, String, String, Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "submitVote", null);
 UserController = __decorate([
     (0, express_1.Controller)("/users"),
     __metadata("design:paramtypes", [])

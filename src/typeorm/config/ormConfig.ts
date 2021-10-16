@@ -9,7 +9,7 @@ const config: ConnectionOptions = {
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
   synchronize: true,
-  entities: ["dist/typeorm/entities/**/*.ts"],
+  entities: ["src/typeorm/entities/**/*.ts"],
   migrations: ["src/typeorm/migrations/**/*.ts"],
   subscribers: ["src/typeorm/subscriber/**/*.ts"],
   cli: {
