@@ -32,11 +32,11 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => PollEntity_1.Poll, (poll) => poll.created_by, { cascade: true }),
+    (0, typeorm_1.OneToMany)(() => PollEntity_1.Poll, (poll) => poll.created_by),
     __metadata("design:type", Array)
 ], User.prototype, "created_polls", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => PollEntity_1.Poll, (poll) => poll.created_by, { cascade: true }),
+    (0, typeorm_1.OneToMany)(() => PollEntity_1.Poll, (poll) => poll.registered_users, { cascade: true }),
     __metadata("design:type", Array)
 ], User.prototype, "registered_polls", void 0);
 __decorate([
@@ -44,7 +44,7 @@ __decorate([
     __metadata("design:type", Array)
 ], User.prototype, "submitted_ballots", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ type: "time with time zone", default: () => "NOW()" }),
+    (0, typeorm_1.CreateDateColumn)({ type: "timestamptz", default: () => "NOW()" }),
     __metadata("design:type", Date)
 ], User.prototype, "created_at", void 0);
 User = __decorate([

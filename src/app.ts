@@ -7,7 +7,7 @@ import { dbCreateConnection } from "./typeorm/db/dbCreateConnection";
   await dbCreateConnection();
 })();
 
-const port = parseInt(process.env.EXPRESS_PORT!);
+const port = parseInt(process.env.EXPRESS_PORT!) || 3000;
 const starter = new Server().start(port)
   .then((port) => console.log(`Running on port ${port}`))
   .catch((error) => {

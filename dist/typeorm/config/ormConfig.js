@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_naming_strategies_1 = require("typeorm-naming-strategies");
 const config = {
     type: "postgres",
@@ -8,7 +9,7 @@ const config = {
     password: process.env.POSTGRES_PASSWORD,
     database: process.env.POSTGRES_DB,
     synchronize: true,
-    entities: ["src/typeorm/entities/**/*.ts"],
+    entities: ["dist/typeorm/entities/**/*.ts"],
     migrations: ["src/typeorm/migrations/**/*.ts"],
     subscribers: ["src/typeorm/subscriber/**/*.ts"],
     cli: {
@@ -16,9 +17,9 @@ const config = {
         migrationsDir: "src/typeorm/migrations",
         subscribersDir: "src/typeorm/subscriber",
     },
-    dropSchema: true,
-    // logging: true,
+    // dropSchema: true,
+    logging: true,
     namingStrategy: new typeorm_naming_strategies_1.SnakeNamingStrategy(),
 };
-module.exports = config;
+exports.default = config;
 //# sourceMappingURL=ormConfig.js.map

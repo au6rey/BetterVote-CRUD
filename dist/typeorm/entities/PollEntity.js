@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Poll = void 0;
 const typeorm_1 = require("typeorm");
+const PollInterfaces_1 = require("../../interfaces/PollInterfaces");
 const _1 = require(".");
 let Poll = class Poll extends typeorm_1.BaseEntity {
 };
@@ -19,7 +20,7 @@ __decorate([
     __metadata("design:type", String)
 ], Poll.prototype, "poll_id", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => _1.User, (user) => user.created_polls),
+    (0, typeorm_1.ManyToOne)(() => _1.User, (user) => user.created_polls, { cascade: true }),
     __metadata("design:type", _1.User)
 ], Poll.prototype, "created_by", void 0);
 __decorate([
@@ -35,7 +36,7 @@ __decorate([
     __metadata("design:type", String)
 ], Poll.prototype, "vote_system", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "varchar" }),
+    (0, typeorm_1.Column)({ type: "enum", enum: PollInterfaces_1.PollType }),
     __metadata("design:type", String)
 ], Poll.prototype, "poll_type", void 0);
 __decorate([
@@ -43,7 +44,11 @@ __decorate([
     __metadata("design:type", Array)
 ], Poll.prototype, "candidates", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "varchar" }),
+    (0, typeorm_1.Column)({
+        type: "enum",
+        enum: PollInterfaces_1.PollStatus,
+        default: PollInterfaces_1.PollStatus.JUST_CREATED,
+    }),
     __metadata("design:type", String)
 ], Poll.prototype, "poll_status", void 0);
 __decorate([
@@ -55,19 +60,19 @@ __decorate([
     __metadata("design:type", Array)
 ], Poll.prototype, "registered_users", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "time with time zone" }),
+    (0, typeorm_1.CreateDateColumn)({ type: "timestamptz", default: () => "NOW()" }),
+    __metadata("design:type", Date)
+], Poll.prototype, "created_at", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: "timestamptz" }),
     __metadata("design:type", Date)
 ], Poll.prototype, "start_time", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "time with time zone" }),
+    (0, typeorm_1.Column)({ type: "timestamptz" }),
     __metadata("design:type", Date)
 ], Poll.prototype, "end_time", void 0);
-__decorate([
-    (0, typeorm_1.CreateDateColumn)({ type: "time with time zone", default: () => "NOW()" }),
-    __metadata("design:type", Date)
-], Poll.prototype, "created_at", void 0);
 Poll = __decorate([
-    (0, typeorm_1.Entity)("polls")
+    (0, typeorm_1.Entity)({ name: "polls" })
 ], Poll);
 exports.Poll = Poll;
 //# sourceMappingURL=PollEntity.js.map

@@ -41,7 +41,13 @@ class AppServer {
         });
     }
     routerConfig() {
-        (0, express_2.attachControllers)(this.app, [controllers_1.TestController, controllers_1.HomeController]);
+        const apiRouter = express_1.default.Router();
+        (0, express_2.attachControllers)(apiRouter, [
+            controllers_1.TestController,
+            controllers_1.HomeController,
+            controllers_1.UserController,
+        ]);
+        this.app.use("/api", apiRouter);
     }
 }
 exports.default = AppServer;

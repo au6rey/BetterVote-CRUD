@@ -30,41 +30,61 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TestController = void 0;
+exports.UserController = void 0;
 const express_1 = require("@decorators/express");
 const entities_1 = require("../typeorm/entities/");
+const typeorm_1 = require("typeorm");
 const Express = __importStar(require("express"));
-let TestController = class TestController {
+let UserController = class UserController {
     constructor() {
     }
-    getAll(res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            res.send(yield entities_1.User.find());
-        });
+    async getOneUser(res, user_id) {
+        try {
+            res.json(await (0, typeorm_1.getRepository)(entities_1.User).findOne(user_id));
+        }
+        catch (error) {
+            res.json(error);
+        }
     }
-    getOne(res, userid) {
-        return __awaiter(this, void 0, void 0, function* () {
-            res.send(yield entities_1.User.findOne(userid));
-        });
+    async getCreatedPolls(res, user_id) {
+        try {
+            const userRepository = await (0, typeorm_1.getRepository)(entities_1.User).findOne({
+                where: { user_id },
+                relations: ["created_polls"],
+            });
+            res.json(userRepository);
+        }
+        catch (error) {
+            res.json(error);
+        }
+    }
+    async addUser(res, req, body) {
+        try {
+            const userRepository = (0, typeorm_1.getRepository)(entities_1.User);
+            await userRepository.save(body);
+            res.json({
+                status: 200,
+            });
+        }
+        catch (error) {
+            res.json(error);
+        }
+    }
+    async addPoll(res, req, user_id, body) {
+        try {
+            const pollRepository = (0, typeorm_1.getRepository)(entities_1.Poll);
+            const created_poll = await pollRepository.save(body);
+            res.json({
+                status: 200,
+                created_poll,
+            });
+        }
+        catch (error) {
+            res.json(error);
+        }
     }
 };
-__decorate([
-    (0, express_1.Get)("/"),
-    __param(0, (0, express_1.Response)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], TestController.prototype, "getAll", null);
 __decorate([
     (0, express_1.Get)("/:id"),
     __param(0, (0, express_1.Response)()),
@@ -72,10 +92,37 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, String]),
     __metadata("design:returntype", Promise)
-], TestController.prototype, "getOne", null);
-TestController = __decorate([
+], UserController.prototype, "getOneUser", null);
+__decorate([
+    (0, express_1.Get)("/:id/created-polls"),
+    __param(0, (0, express_1.Response)()),
+    __param(1, (0, express_1.Params)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getCreatedPolls", null);
+__decorate([
+    (0, express_1.Post)("/new-user"),
+    __param(0, (0, express_1.Response)()),
+    __param(1, (0, express_1.Request)()),
+    __param(2, (0, express_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object, Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "addUser", null);
+__decorate([
+    (0, express_1.Post)("/:id/add-poll"),
+    __param(0, (0, express_1.Response)()),
+    __param(1, (0, express_1.Request)()),
+    __param(2, (0, express_1.Params)("id")),
+    __param(3, (0, express_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object, String, Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "addPoll", null);
+UserController = __decorate([
     (0, express_1.Controller)("/users"),
     __metadata("design:paramtypes", [])
-], TestController);
-exports.TestController = TestController;
+], UserController);
+exports.UserController = UserController;
 //# sourceMappingURL=UserController.js.map
