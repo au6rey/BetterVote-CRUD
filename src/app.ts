@@ -1,7 +1,11 @@
 import "reflect-metadata";
 import Server from "./server";
 import dotenv from "dotenv";
+// import awsConfig from "./aws/config/";
 dotenv.config();
+
+// awsConfig();
+
 import { dbCreateConnection } from "./typeorm/db/dbCreateConnection";
 (async () => {
   await dbCreateConnection();

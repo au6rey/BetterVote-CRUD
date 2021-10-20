@@ -1,4 +1,4 @@
-import { User } from "../typeorm/entities";
+import { Poll, User } from "../typeorm/entities";
 import { VoteSystem } from "./VoteInterfaces";
 
 // export type PollStatus = "JUST_CREATED" | "ACTIVE" | "ENDED";
@@ -25,4 +25,8 @@ export interface PollInput {
   candidates: string[];
   start_time: Date;
   end_time: Date;
+}
+export interface PollStatusChange {
+  poll_id: Poll;
+  poll_status: "POLL_START" | "POLL_STOP";
 }

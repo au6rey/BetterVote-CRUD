@@ -19,6 +19,7 @@ const config: ConnectionOptions = {
   },
   // dropSchema: true,
   logging: true,
+  logger: "file",
   namingStrategy: new SnakeNamingStrategy(),
 };
 

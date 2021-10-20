@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Delete,
   Get,
@@ -10,20 +11,32 @@ import {
 } from "@decorators/express";
 import { Poll } from "../typeorm/entities";
 import * as Express from "express";
+import { PollStatusChange } from "../interfaces/PollInterfaces";
 
 @Controller("/polls")
-export class TestController {
+export class PollController {
   constructor() {
   }
 
   //Ensure authenticated
-  @Post("/new-poll")
+  @Post("/status")
   async addPoll(
     @Response() res: Express.Response,
-    @Request() req: Express.Request,
-    @Params("id") poll_id: string,
+    @Body() body: any,
   ) {
     // res.json(await Poll.findOne(poll_id));
+    console.log("Post req on status", body);
+    res.json({ status: 200 });
+  }
+
+  @Get("/status")
+  async seePoll(
+    @Response() res: Express.Response,
+    @Body() body: PollStatusChange | any,
+  ) {
+    // res.json(await Poll.findOne(poll_id));
+    console.log(body);
+    res.json({ status: 200 });
   }
 
   @Get("/:id")

@@ -8,9 +8,13 @@ import {
   Response,
 } from "@decorators/express";
 import { Ballot, Poll, User } from "../typeorm/entities/";
-import { getManager, getRepository } from "typeorm";
+import { getRepository } from "typeorm";
 import * as Express from "express";
-import { UserRegistrationInput } from "../interfaces/UserInterfaces";
+import jwt, { Jwt } from "jsonwebtoken";
+import {
+  UserLoginInput,
+  UserRegistrationInput,
+} from "../interfaces/UserInterfaces";
 import { PollInput } from "../interfaces/PollInterfaces";
 import { VoteInput } from "../interfaces/VoteInterfaces";
 
@@ -47,7 +51,7 @@ export class UserController {
     }
   }
 
-  @Post("/new-user")
+  @Post("/signup")
   async addUser(
     @Response() res: Express.Response,
     @Request() req: Express.Request,
@@ -59,6 +63,39 @@ export class UserController {
       res.json({
         status: 200,
       });
+    } catch (error) {
+      res.json(error);
+    }
+  }
+
+  @Post("/login")
+  async login(
+    @Response() res: Express.Response,
+    @Request() req: Express.Request,
+    @Body() body: UserLoginInput,
+  ) {
+    try {
+      console.log("Login attempt", body);
+      let user = await getRepository(User).findOne({ where: body });
+      console.log("User", user);
+      if (user) {
+        // console.log("asdsadasd");
+
+        let token = jwt.sign(
+          { user_id: user.user_id },
+          process.env.JWT_SECRET!,
+          {
+            algorithm: "HS256",
+            expiresIn: "15d",
+          },
+        );
+        console.log("asdsadasd");
+
+        res.json({
+          status: 200,
+          token,
+        });
+      }
     } catch (error) {
       res.json(error);
     }
