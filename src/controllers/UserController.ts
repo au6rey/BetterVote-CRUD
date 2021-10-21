@@ -10,7 +10,8 @@ import {
 import { Ballot, Poll, User } from "../typeorm/entities/";
 import { getRepository } from "typeorm";
 import * as Express from "express";
-import jwt, { Jwt } from "jsonwebtoken";
+// import jwt, { Jwt } from "jsonwebtoken";
+import { getToken } from "../auth";
 import {
   UserLoginInput,
   UserRegistrationInput,
@@ -77,24 +78,10 @@ export class UserController {
     try {
       console.log("Login attempt", body);
       let user = await getRepository(User).findOne({ where: body });
-      console.log("User", user);
+
       if (user) {
-        // console.log("asdsadasd");
-
-        let token = jwt.sign(
-          { user_id: user.user_id },
-          process.env.JWT_SECRET!,
-          {
-            algorithm: "HS256",
-            expiresIn: "15d",
-          },
-        );
-        console.log("asdsadasd");
-
-        res.json({
-          status: 200,
-          token,
-        });
+        let token = getToken(user);
+        res.send(token);
       }
     } catch (error) {
       res.json(error);

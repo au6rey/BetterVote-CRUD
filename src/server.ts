@@ -3,6 +3,7 @@ import http from "http";
 import { Server, Socket } from "socket.io";
 import { attachControllers } from "@decorators/express";
 import cors from "cors";
+
 import {
   HomeController,
   PollController,
@@ -20,6 +21,7 @@ export default class AppServer {
     this.server = http.createServer(this.app);
     this.io = new Server(this.server);
     this.appConfig();
+
     this.routerConfig();
     this.ioConfig();
   }

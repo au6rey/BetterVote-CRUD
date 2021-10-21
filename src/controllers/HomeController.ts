@@ -1,7 +1,9 @@
 import { Controller, Get, Request, Response } from "@decorators/express";
-import jwt, { Jwt } from "jsonwebtoken";
 import * as Express from "express";
+import jwt from "jsonwebtoken";
+import { Injectable } from "@decorators/di";
 
+@Injectable()
 @Controller("/")
 export class HomeController {
   constructor() {
@@ -12,8 +14,6 @@ export class HomeController {
     @Response() res: Express.Response,
     @Request() req: Express.Request,
   ) {
-    res.send("<p>HOMEPAGE!</p>");
-
     try {
       var str = req.get("Authorization");
       if (str) {

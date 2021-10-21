@@ -1,9 +1,12 @@
 import "reflect-metadata";
 import Server from "./server";
 import dotenv from "dotenv";
-// import awsConfig from "./aws/config/";
 dotenv.config();
+// import awsConfig from "./aws/config/";
+import passport from "passport";
+import { passConfig } from "./auth";
 
+passConfig(passport);
 // awsConfig();
 
 import { dbCreateConnection } from "./typeorm/db/dbCreateConnection";
